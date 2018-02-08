@@ -1,91 +1,232 @@
-package banque;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.*;
 
-
-public class Transaction {
-	private String date_Transaction ;
-	private float depot;
-	private float retrait;
-	private float montant;
+public class Banque {
 	
-	// constructeurs
-	public Transaction() {
+	ArrayList<Compte> arrayCompte = new ArrayList<Compte>();
+	ArrayList<Transaction> arrayTransaction = new ArrayList<Transaction>();
+	
+	static Scanner sc = new Scanner(System.in);
+	int idCompte = 000;
+	int idClient;
+	String nom;
+	String date;
+	float soldeAccount;
+	float tauxAccount;
+	float depotAccount;
+	float retraitAccount;
+	
+	
+	// creer un Compte
+		public void addCompte() {
+			System.out.println("**************************************");
+			do{
+				for (int i = 000; i < arrayCompte.size(); i++) {
+					if (idCompte == i){
+						idCompte = idCompte + 001; 
+					}
+				}
+			}while(idCompte <000);
+			
+			do{
+			System.out.println("Entrer le numero du client : ");
+			idClient = sc.nextInt();
+			}while(idClient < 000);
+			sc.nextLine();
+			System.out.println("Entrer le nom du client: ");
+			nom = sc.nextLine();
+			System.out.println("Entrer le montant du compte : ");
+			soldeAccount = sc.nextFloat();
+			depotAccount = soldeAccount;
+			System.out.println("Entrer le taux d'interet : ");
+			tauxAccount = sc.nextFloat();
+			sc.nextLine();
+			System.out.println("Entrer le date : ");
+			date = sc.nextLine();
+			
+			Transaction transac = new Transaction();
+			
+				transac.setDate_Transaction(date);
+				transac.setDepot(depotAccount);
+				transac.setRetrait(retraitAccount);
+				transac.setMontant(soldeAccount);
+			
+			Compte account = new Compte(idCompte, idClient, nom, soldeAccount, tauxAccount,transac );
+			arrayCompte.add(account);
+
+			System.out.println("**************************************");
+		}
 		
-	}
+		// depot sur un Compte
+		public void depotCompte() {
+			System.out.println("=====================================");
+			System.out.println("Entrer le num�ro de compte : ");
+			int noCompte;
+			noCompte = sc.nextInt();
+			System.out.println("=====================================");
+			System.out.println("Le solde du compte " + "(" + noCompte + "): ");
+			for (int j = 0; j < arrayCompte.size(); j++) {
+				if(noCompte == arrayCompte.get(j).getNo_Compte()) {
+					System.out.println(arrayCompte.get(j).getSolde());
+					System.out.println("Entrer le montant du depot: ");
+					soldeAccount = sc.nextFloat();
+					arrayCompte.get(j).setSolde(soldeAccount + arrayCompte.get(j).getSolde());
+				}
+			}
+			System.out.println("=====================================");
+		}
+			
+			/*				else {
+					System.out.println("Ce Compte n'existe pas");
+					break;
+				}
+			}
+			System.out.println("=====================================");
+			// showAllPerson();
+		}*/
+		
+		
+		// retrait sur un Compte
+				public void retraitCompte() {
+					System.out.println("=====================================");
+					System.out.println("Entrer le num�ro de compte : ");
+					int noCompte;
+					noCompte = sc.nextInt();
+					System.out.println("=====================================");
+					System.out.println("Le solde du compte " + "(" + noCompte + "): ");
+					for (int j = 0; j < arrayCompte.size(); j++) {
+						if(noCompte == arrayCompte.get(j).getNo_Compte()) {
+							System.out.println(arrayCompte.get(j).getSolde());
+							System.out.println("Entrer le montant du retrait: ");
+							soldeAccount = sc.nextFloat();
+							arrayCompte.get(j).setSolde(arrayCompte.get(j).getSolde() - soldeAccount);
+						}
+					}
+					System.out.println("=====================================");
+				}
+				
+				 // calcul de l'interet
+				public void interetCompte() {
+					System.out.println("=====================================");
+					for (int i = 0; i < arrayCompte.size(); i++) {
+						System.out.println(arrayCompte.get(i).toString());
+						arrayCompte.get(i).setSolde((arrayCompte.get(i).getSolde() * arrayCompte.get(i).getTaux()) + arrayCompte.get(i).getSolde());
+						System.out.println("=====================================");
+					}
+					for (int i = 0; i < arrayCompte.size(); i++) {
+						System.out.println(arrayCompte.get(i).toString());
+						System.out.println("=====================================");
+					}
+				}
+		
+		//Consulter le solde d'un Compte
+		public void search(){
+			System.out.println("Entrer le num�ro de compte : ");
+			int noCompte;
+			noCompte = sc.nextInt();
+			System.out.println("=====================================");
+			System.out.println("Le solde du compte " + "(" + noCompte + "): ");
+			for (int j = 0; j < arrayCompte.size(); j++) {
+				if(noCompte == arrayCompte.get(j).getNo_Compte()) {
+					System.out.println(arrayCompte.get(j).getSolde());
+				}
+			}
+			System.out.println("=====================================");
+		}
+		
+		// Lister les listes des comptes
+		public void showAllCompte() {
 
-	public Transaction(String date_Transaction, float depot, float retrait, float montant) {
-		this.date_Transaction = date_Transaction;
-		this.montant = montant;
-		this.depot = depot;
-		this.retrait = retrait;
-	}
+			for (int i = 0; i < arrayCompte.size(); i++) {
+				System.out.println(arrayCompte.get(i).toString());
+				System.out.println("=====================================");
+			}
+		}
+		
+		
+		//Checher les comptes d'un client
+		public void searchAccount(){
+			System.out.println("Entrer le num�ro d�identification du client a recherche : ");
+			int noClient;
+			noClient = sc.nextInt();
+			System.out.println("=====================================");
+			System.out.println("Les comptes du client " + "(" + noClient + "): ");
+			for (int j = 0; j < arrayCompte.size(); j++) {
+				if(noClient == arrayCompte.get(j).getNo_Client()) {
+					System.out.println(arrayCompte.get(j).toString());
+				}
+			}
+			System.out.println("=====================================");
+		}
+		
+		
+		public int menu() {
+			System.out.println("~~~~~~~~~~~*Gestion bancaire*~~~~~~~~~~~");
+			System.out.println("1. Creer un compte.");
+			System.out.println("2. Depot dans un compte");
+			System.out.println("3. Retrait dans un compte");
+			System.out.println("4. Consulter le solde d'un compte");
+			System.out.println("5. Calculer l�int�r�t pour tous les comptes et mettre � jours leur solde");
+			System.out.println("6. Rapport des liste de comptes");
+			System.out.println("7. Checher les comptes d'un client");
+			System.out.print("Faire un choix: ");
+			return sc.nextInt();
+		}
+
+		public void lancer() {
+			int choix;
+			do {
+				choix = menu();
+				operation(choix);
+
+			} while (choix != 8);
+		}
+
+		public void operation(int key) {
+			switch (key) {
+			case 1:
+				System.out.println("Creer un compte : ");
+				addCompte();
+				break;
+			case 2:
+				System.out.println("Depot dans un compte : ");
+				depotCompte();
+				break;
+			case 3:
+				System.out.println("Retrait dans un compte : ");
+				retraitCompte();
+				break;
+			case 4:
+				System.out.println("Consulter le solde d'un compte :");
+				search();
+				break;
+			case 5:
+				System.out.println("Calculer l�int�r�t pour tous les comptes et mettre � jours leur solde :");
+				interetCompte();
+				break;
+			case 6:
+				System.out.println("Rapport des liste de comptes :");
+				showAllCompte();
+				break;
+			case 7:
+				System.out.println("Checher les comptes d'un client :");
+				searchAccount();
+				break;
+			default: 
+				System.out.println("Erreur de saisi");
+				break;
+			}
+		}	
+		
 
 	/**
-	 * @return the date_Transaction
+	 * @param args
 	 */
-	public String getDate_Transaction() {
-		return date_Transaction;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Banque banqueC = new Banque();
+		banqueC.lancer();
 	}
 
-	/**
-	 * @param date_Transaction the date_Transaction to set
-	 */
-	public void setDate_Transaction(String date_Transaction) {
-		this.date_Transaction = date_Transaction;
-	}
-
-	/**
-	 * @return the depot
-	 */
-	public float getDepot() {
-		return depot;
-	}
-
-	/**
-	 * @param depot the depot to set
-	 */
-	public void setDepot(float depot) {
-		this.depot = depot;
-	}
-
-	/**
-	 * @return the retrait
-	 */
-	public float getRetrait() {
-		return retrait;
-	}
-
-	/**
-	 * @param retrait the retrait to set
-	 */
-	public void setRetrait(float retrait) {
-		this.retrait = retrait;
-	}
-
-	/**
-	 * @return the montant
-	 */
-	public float getMontant() {
-		return montant;
-	}
-
-	/**
-	 * @param montant the montant to set
-	 */
-	public void setMontant(float montant) {
-		this.montant = montant;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Date Transaction = " + date_Transaction + "\n" +
-				"Depot = " + depot + "\n" + 
-				"Retrait = " + retrait + "\n" +
-				"Montant = " + montant + "\n";
-	}
-	
-
-	
 }

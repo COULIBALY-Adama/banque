@@ -17,7 +17,7 @@ public class Banque {
 	float retraitAccount;
 	
 	
-	// creer un compte
+	// creer un Compte
 		public void addCompte() {
 			System.out.println("**************************************");
 			do{
@@ -44,20 +44,20 @@ public class Banque {
 			System.out.println("Entrer le date : ");
 			date = sc.nextLine();
 			
-			transaction transac = new transaction();
+			Transaction transac = new Transaction();
 			
 				transac.setDate_Transaction(date);
 				transac.setDepot(depotAccount);
 				transac.setRetrait(retraitAccount);
 				transac.setMontant(soldeAccount);
 			
-			compte account = new compte(idCompte, idClient, nom, soldeAccount, tauxAccount,transac );
+			Compte account = new Compte(idCompte, idClient, nom, soldeAccount, tauxAccount,transac );
 			arrayCompte.add(account);
 
 			System.out.println("**************************************");
 		}
 		
-		// depot sur un compte
+		// depot sur un Compte
 		public void depotCompte() {
 			System.out.println("=====================================");
 			System.out.println("Entrer le num�ro de compte : ");
@@ -77,7 +77,7 @@ public class Banque {
 		}
 			
 			/*				else {
-					System.out.println("Ce compte n'existe pas");
+					System.out.println("Ce Compte n'existe pas");
 					break;
 				}
 			}
@@ -86,7 +86,7 @@ public class Banque {
 		}*/
 		
 		
-		// retrait sur un compte
+		// retrait sur un Compte
 				public void retraitCompte() {
 					System.out.println("=====================================");
 					System.out.println("Entrer le num�ro de compte : ");
@@ -119,7 +119,7 @@ public class Banque {
 					}
 				}
 		
-		//Consulter le solde d'un compte
+		//Consulter le solde d'un Compte
 		public void search(){
 			System.out.println("Entrer le num�ro de compte : ");
 			int noCompte;
@@ -224,7 +224,7 @@ public class Banque {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		banque banqueC = new banque();
+		Banque banqueC = new Banque();
 		banqueC.lancer();
 	}
 
