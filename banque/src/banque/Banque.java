@@ -1,3 +1,7 @@
+package banque;
+
+import banque.Compte;
+import banque.Transaction;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,6 +20,14 @@ public class Banque {
 	float depotAccount;
 	float retraitAccount;
 	
+        /**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Banque banqueC = new Banque();
+		banqueC.lancer();
+	}
 	
 	// creer un Compte
 		public void addCompte() {
@@ -219,13 +231,6 @@ public class Banque {
 		}	
 		
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Banque banqueC = new Banque();
-		banqueC.lancer();
-	}
+	
 
 }
