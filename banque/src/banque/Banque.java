@@ -1,11 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.*;
 
-public class banque {
+public class Banque {
 	
-	ArrayList<compte> arrayCompte = new ArrayList<compte>();
-	ArrayList<transaction> arrayTransaction = new ArrayList<transaction>();
+	ArrayList<Compte> arrayCompte = new ArrayList<Compte>();
+	ArrayList<Transaction> arrayTransaction = new ArrayList<Transaction>();
 	
 	static Scanner sc = new Scanner(System.in);
 	int idCompte = 000;
